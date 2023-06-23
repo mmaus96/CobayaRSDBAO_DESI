@@ -1,0 +1,171 @@
+# Sample Yaml File for the Full BOSS Analysis
+# To run in your directory, subsitute the basedir where the BOSSxPlanck repo is kept
+# e.g. in my case its path is /global/cscratch1/sd/mwhite/BOSS/Cobaya
+#
+theory:
+  joint_likelihood_gc_emu_am_omb.Taylor_pk_theory_zs:
+      zfids:
+      - 0.8
+      # - 0.38
+      pk_filenames:
+      - emulator/fullshape_omb/abacus_fid/emu/boss_z_0.80_pkells.json
+      # - BOSSxPlanck/emulator/emu/boss_z_0.38_pkells.json
+      xi_filenames:
+      - emulator/fullshape_omb/abacus_fid/emu/boss_z_0.80_xiells.json
+      # - BOSSxPlanck/emulator/emu/boss_z_0.38_xiells.json
+      s8_filename: emulator/fullshape_omb/abacus_fid/emu/boss_s8.json
+      basedir: /pscratch/sd/m/mmaus/new_template/Cobaya_template/
+      omega_nu: 0.0006442
+      stop_at_error: True
+      
+likelihood:
+  joint_boss_likelihoods_emu_am_omb.FS_BAOEmu_Abacus_LRG_Cubic_mean:
+    basedir: /pscratch/sd/m/mmaus/new_template/Cobaya_template/
+    linear_param_dict_fn: rsd_likelihood/abacus_linear_params.yaml
+    zfid: 0.8
+    fs_kmins:
+    - 0.02
+    # - 0.02
+    fs_mmaxs:
+    - 0.20
+    # - 0.20
+    fs_qmaxs:
+    - 0.20
+    # - 0.20
+    bao_rmins:
+    - 80.
+    bao_rmaxs:
+    - 130.
+    kmax_spline:
+    - 0.5
+    include_priors: true
+    optimize: true
+    stop_at_error: true
+
+params:
+  H0:
+    prior:
+      # min: 60.0
+      # max: 80.0
+      min: 55.0
+      max: 79.0
+    ref:
+      dist: norm
+      loc:  69.848
+      scale: 1.0
+    latex: H_0
+  omega_b:
+    prior:
+      dist:  norm
+      loc: 0.02237
+      scale: 0.00037
+      # min: 0.022
+      # max: 0.02274
+    ref:
+      dist: norm
+      loc: 0.02237
+      scale: 0.0001
+    latex: \Omega_\mathrm{b}h^2
+  omega_cdm:
+    prior:
+      min: 0.08
+      max: 0.16
+      # min: 0.05
+      # max: 0.2
+    ref:
+      dist: norm
+      loc: 0.1
+      scale: 0.05
+    latex: \Omega_\mathrm{cdm}h^2
+  logA:
+    prior:
+      dist: uniform
+      min:  2.03
+      max:  4.03
+      # min:  1.61
+      # max:  3.91
+    ref:
+      dist:  norm
+      loc:   2.7954
+      scale: 0.05
+    latex: \log(10^{10} A_\mathrm{s})
+  sigma8:
+    latex: \sigma_8
+  omegam:
+    latex: \Omega_\mathrm{m}
+    
+  # LRG
+  bsig8_LRG:
+    prior:
+      dist: uniform
+      min:  0.5
+      max:  3.0
+    ref:
+      dist:  norm
+      loc:   1.7239232
+      scale: 0.05
+    latex: (1+b_1^{N3})\sigma_8
+  b2_LRG:
+    prior:
+      dist:  norm
+      loc:   0.0
+      scale: 10.
+    ref:
+      dist:  norm
+      loc:   -2.1724898
+      scale: 0.1
+    latex: b_2^{N3}
+  bs_LRG:
+    prior:
+      dist:  norm
+      loc:   0.0
+      scale: 5.0
+    ref:
+      dist:  norm
+      loc:   1.0970124
+      scale: 0.1
+    latex: b_s^{N3}
+  
+  # Post-recon parameters
+  B1_LRG:
+    prior:
+      dist: uniform
+      min: 0.0
+      max: 5.0
+    ref:
+      dist: norm
+      loc: 1.12
+      scale: 0.1
+    latex: B_1^{LRG}
+  F_LRG:
+    prior:
+      dist: uniform
+      min: 0.0
+      max: 5.0
+    ref:
+      dist: norm
+      loc: 0.63
+      scale: 0.1
+    latex: F^{LRG}
+
+
+sampler:
+  mcmc:
+    covmat: auto #covini/boss_rsd.covini
+    learn_proposal: True
+    learn_proposal_Rminus1_max: 5.
+    output_every: 60s
+    measure_speeds: True
+    max_tries: 500
+    oversample_power: 0.4
+    proposal_scale: 1.5
+    Rminus1_stop: 0.01
+    # blocking:
+    #   - [ 1, [logA,omega_b,omega_cdm,H0]]
+    #   - [ 2, [bsig8_LRG,b2_LRG,bs_LRG]]
+    #   - [ 3, [B1_LRG,F_LRG]]
+output: cosmo_chains/mocks/LRG/KP5_tests/RSDxBAO/pk
+debug: False
+debug_file: cosmo_chains/mocks/LRG/KP5_tests/RSDxBAO/pk
+timing: True
+stop_on_error: True
