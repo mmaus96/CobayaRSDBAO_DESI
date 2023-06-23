@@ -1,0 +1,24 @@
+zfid:     0.8
+
+fs_sample_names:
+- LRG
+
+# The paths below assume the code/chain is running in the parent
+# directory where the BOSSxPlanck repo has been cloned.
+# Otherwise, override these with the full path.
+fs_datfns: 
+- mock_data/LRG/pk/z0.800/Pk_mean.txt
+
+bao_sample_names:
+- LRG
+
+bao_datfns: 
+- mock_data/LRG/Xi_post/xi_mean.txt
+
+covfn: mock_data/LRG/covariances/joint_rsdBAO_cov_mean.txt
+
+fs_matMfns: 
+- mock_data/LRG/matrices/Mmat.txt
+
+fs_matWfns: 
+- mock_data/LRG/matrices/Wmat.txt
