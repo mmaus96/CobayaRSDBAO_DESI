@@ -415,8 +415,8 @@ class JointLikelihood(Likelihood):
         xi2t = xi2table[:,0] + B1*xi2table[:,1] + F*xi2table[:,2] \
              + B1**2 * xi2table[:,3] + F**2 * xi2table[:,4] + B1*F*xi2table[:,5]
         
-        xi0t += polyval(1/rvec, Mpoly)
-        xi2t += polyval(1/rvec, Qpoly)
+        xi0t += polyval(100/rvec, Mpoly)
+        xi2t += polyval(100/rvec, Qpoly)
         
         return np.array([rvec,xi0t,xi2t]).T
     
